@@ -1,4 +1,3 @@
-from types import get_original_bases
 from django.db import models
 
 
