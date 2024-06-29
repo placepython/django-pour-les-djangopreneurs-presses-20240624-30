@@ -6,9 +6,11 @@ name = "pypi"
 [packages]
 django = "*"
 django-extensions = "*"
+crispy-tailwind = "*"
 
 [dev-packages]
 ipython = "*"
+django-browser-reload = "*"
 
 [requires]
 python_version = "3.11"
