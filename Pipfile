@@ -7,6 +7,9 @@ name = "pypi"
 django = "*"
 django-extensions = "*"
 crispy-tailwind = "*"
+django-allauth = "*"
+django-vite = "*"
+django-template-partials = "*"
 
 [dev-packages]
 ipython = "*"
