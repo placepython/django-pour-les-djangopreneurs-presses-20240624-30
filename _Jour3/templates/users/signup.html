@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+
+{% block content %}
+
+<header class="mt-4 mb-6 container mx-auto">
+    <h1 class="text-4xl font-bold">Page d'inscription</h1>
+</header>
+
+<main class="container mx-auto">
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-neutral">M'inscrire</button>
+    </form>
+</main>
+{% endblock content %}

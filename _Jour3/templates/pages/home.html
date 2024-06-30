@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+
+{% block title %}WePynaire | Accueil{% endblock title %}
+
+
+{% block head_styles %}
+{% endblock head_styles %}
+
+
+{% block content %}
+
+<header class="container mx-auto mb-6">
+    <h1 class="font-bold text-4xl mt-4">Bienvenue sur mon WePynaire</h1>
+    {% if user.is_authenticated %}
+        <h2 class="font-bold text-2xl mt-2">{{ user.username }} est authentifié</h2>
+    {% endif %}
+</header>
+
+<main class="container mx-auto bg-">
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-neutral" type="submit">Envoyer</button>
+    </form>
+</main>
+
+{% endblock content %}
