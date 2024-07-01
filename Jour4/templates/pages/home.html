@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+
+{% block title %}WePynaire | Accueil{% endblock title %}
+
+
+{% block head_styles %}
+{% endblock head_styles %}
+
+{% partialdef article_form %}
+<!-- Open the modal using ID.showModal() method -->
+<dialog id="modal" class="modal modal-open">
+    <div class="modal-box">
+      <h3 class="text-lg font-bold">Créer un article</h3>
+      <form id="article-create-form" method="post" hx-post="{% url 'pages:create-article' %}" hx-target="#modal" hx-swap="outerHTML">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-neutral">Créer l'article</button>
+      </form>
+    </div>
+  </dialog>
+{% endpartialdef %}
+
+
+{% block content %}
+
+<header class="container mx-auto mb-6">
+    <h1 class="font-bold text-4xl mt-4 text-black">Bienvenue sur mon WePynaire</h1>
+</header>
+
+<main class="container mx-auto bg-">
+    <button class="btn btn-neutral" hx-get="{% url 'pages:create-article' %}" hx-target="#modal" hx-swap="outerHTML">Créer un article</button>
+</main>
+
+{% endblock content %}
+
+{% block modals %}
+    {% partialdef empty_modal inline=True %}
+        <div id="modal"></div>
+    {% endpartialdef %}
+{% endblock modals %}
