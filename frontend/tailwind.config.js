@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+console.log(process.env.ANY_COLOR)
 module.exports = {
   content: [
     "../**/src/**/*.{js,css,scss,html}",
