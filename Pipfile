@@ -10,6 +10,8 @@ crispy-tailwind = "*"
 django-allauth = "*"
 django-vite = "*"
 django-template-partials = "*"
+pillow = "*"
+stripe = "*"
 
 [dev-packages]
 ipython = "*"

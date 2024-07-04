@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     "pages",
     "blog",
     "users",
+    "images",
+    "products",
+    "cart",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -46,10 +49,10 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_tailwind",
     "django_browser_reload",
-    'allauth',
-    'allauth.account',
+    "allauth",
+    "allauth.account",
     "django_vite",
-    "template_partials"
+    "template_partials",
 ]
 
 MIDDLEWARE = [
@@ -166,9 +169,9 @@ LOGOUT_REDIRECT_URL = "pages:home"
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
+    "django.contrib.auth.backends.ModelBackend",
     # `allauth` specific authentication methods, such as login by email
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 ACCOUNT_ALLOW_REGISTRATION = True
