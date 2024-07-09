@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from blog.models import Article
+from wepynaire.blog.models import Article
 
 
 class ArticleForm(forms.ModelForm):

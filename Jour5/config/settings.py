@@ -12,16 +12,22 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+import environ
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Loading environment variables
+env = environ.Env()
+env.read_env(str(BASE_DIR / ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = (
-    "django-insecure-=($18y4^so-jskrq6$=u)4kv)5=87y&j-02km)i&-tdwp&x0yx"
+SECRET_KEY = env(
+    "SECRET_KEY",
+    default="django-insecure-=($18y4^so-jskrq6$=u)4kv)5=87y&j-02km)i&-tdwp&x0yx",
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -33,9 +39,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "pages",
-    "blog",
-    "users",
+    "wepynaire",
+    "wepynaire.pages",
+    "wepynaire.blog",
+    "wepynaire.users",
+    "wepynaire.products",
+    "wepynaire.payments",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -46,10 +55,11 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_tailwind",
     "django_browser_reload",
-    'allauth',
-    'allauth.account',
+    "allauth",
+    "allauth.account",
     "django_vite",
-    "template_partials"
+    "template_partials",
+    "guardian",
 ]
 
 MIDDLEWARE = [
@@ -69,9 +79,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [
-            BASE_DIR / "templates",
-        ],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "builtins": ["template_partials.templatetags.partials"],
@@ -92,10 +100,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": env.db(default="sqlite:///db.sqlite3"),
 }
 
 
@@ -136,7 +141,6 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
     BASE_DIR / "frontend" / "dist",
 ]
 
@@ -156,7 +160,16 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
 
 # Email config
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = env(
+    "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
+)
+EMAIL_HOST = "mail.placepython.com"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = "test@placepython.com"
+
 
 # Config of the custom user and authentication
 AUTH_USER_MODEL = "users.User"
@@ -166,9 +179,10 @@ LOGOUT_REDIRECT_URL = "pages:home"
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
+    "django.contrib.auth.backends.ModelBackend",
     # `allauth` specific authentication methods, such as login by email
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "allauth.account.auth_backends.AuthenticationBackend",
+    "guardian.backends.ObjectPermissionBackend",
 ]
 
 ACCOUNT_ALLOW_REGISTRATION = True
@@ -177,3 +191,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_SESSION_REMEMBER = None
+
+# Stripe config
+STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET_KEY = env("STRIPE_WEBHOOK_SECRET_KEY")

@@ -10,6 +10,10 @@ crispy-tailwind = "*"
 django-allauth = "*"
 django-vite = "*"
 django-template-partials = "*"
+django-environ = "*"
+psycopg = {extras = ["binary"], version = "*"}
+stripe = "*"
+django-guardian = "*"
 
 [dev-packages]
 ipython = "*"

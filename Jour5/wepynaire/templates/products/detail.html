@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name|title }} | WePynaire{% endblock title %}
+
+{% block content %}
+
+<header class="container mx-auto my-4">
+    <h1 class="font-bold text-4xl">{{ product.name }}</h1>
+</header>
+
+<main class="container mx-auto my-4">
+    <ul>
+    {% for price in product.prices.all %}
+        <li>{{ price.description }} - {{ price.price }} CHF - {% if user.is_authenticated %}<form class="inline-block" action="{% url 'payments:create-checkout-session' price.id %}" method="post">{% csrf_token %}<button type="submit" class="text-sky-600 hover:text-sky-400">Acheter</button></form>{% else %}<a class="text-sky-600 hover:text-sky-400" href="{% url 'account_login' %}?next={{ request.path }}">Se connecter pour acheter</a>{% endif %}</li>
+    {% endfor %}
+    </ul>
+</main>
+
+{% endblock content %}

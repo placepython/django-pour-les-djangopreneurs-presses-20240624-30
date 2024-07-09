@@ -1,0 +1,18 @@
+version: "3"
+services:
+    postgres:
+        container_name: monprojet_postgres_container_37372
+        image: postgres:latest
+        working_dir: /app
+        restart: always
+        ports:
+            - "37372:5432"
+        environment:
+            POSTGRES_USER: monprojet
+            POSTGRES_PASSWORD: monprojet
+            POSTGRES_DB: monprojet
+        volumes:
+            - "postgres_monprojet_37372:/var/lib/postgresql/data/"
+
+volumes:
+    postgres_monprojet_37372:

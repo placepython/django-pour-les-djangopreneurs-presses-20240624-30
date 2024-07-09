@@ -20,8 +20,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("pages.urls")),
-    path("users/", include("users.urls")),
-    path('', include('allauth.urls')),
+    path("", include("wepynaire.pages.urls")),
+    path("users/", include("wepynaire.users.urls")),
+    path("products/", include("wepynaire.products.urls")),
+    path("payments/", include("wepynaire.payments.urls")),
+    path("", include("allauth.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
 ]

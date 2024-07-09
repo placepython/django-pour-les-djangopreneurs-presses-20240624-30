@@ -1,27 +1,24 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
-from blog.forms import ArticleForm
+from wepynaire.blog.forms import ArticleForm
+
 
 def hx_affichage(request):
     return render(request, "pages/affichage.html")
 
+
 def home(request):
-    return render(
-        request,
-        "pages/home.html"
-    )
+    return render(request, "pages/home.html")
 
 
 def create_article(request):
     if request.method == "POST":
         form = ArticleForm(request.POST)
         if form.is_valid():
-            ... # sauver l'article
+            ...  # sauver l'article
             form.save()
-            return render(
-                request,
-                "pages/home.html#empty_modal")
+            return render(request, "pages/home.html#empty_modal")
     else:
         form = ArticleForm()
     return render(
